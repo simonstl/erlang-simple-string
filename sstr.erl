@@ -5,7 +5,7 @@ len(Arg1) -> string:len(Arg1).
 
 length(Arg1) -> erlang:length(Arg1).
 
-concat(Arg1) -> string:concat(Arg1).
+concat(Arg1) -> lists:concat(Arg1).
 concat(Arg1, Arg2) -> string:concat(Arg1, Arg2).
 
 append(Arg1) -> lists:append(Arg1).
