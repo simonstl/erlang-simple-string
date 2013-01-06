@@ -5,23 +5,24 @@
 -export([strip/3, left/2, left/3, right/2, right/3, centre/2, centre/3, reverse/1]).
 -export([reverse/2, to_float/1, to_integer/1, to_lower/1, to_upper/1]).
 -export([integer_to_list/1, integer_to_list/2, float_to_list/1, fun_to_list/1]). 
--export([list_to_atom/1]).
+-export([list_to_atom/1, equal/2, rchr/2, rstr/2, span/2, cspan/2]).
 
 -spec(len(string()) -> integer()).
 len(String) -> string:len(String).
 
-% should equal be included?
+-spec(equal(string(), string()) -> boolean()).
+equal(String1, String2) -> string:equal(String1, String2).
 
 -spec(length(string()) -> integer()).
 length(String) -> erlang:length(String).
 
--spec(concat(List) -> string()).
+-spec(concat(list()) -> string()).
 concat(ListOfStrings) -> lists:concat(ListOfStrings).
 
 -spec(concat(string(), string()) -> string()).
 concat(String1, String2) -> string:concat(String1, String2).
 
--spec(append(List) -> string()).
+-spec(append(list()) -> string()).
 append(ListOfStrings) -> lists:append(ListOfStrings).
 
 -spec(append(string(), string()) -> string()).
@@ -57,12 +58,18 @@ sub_string(String, Start) -> string:sub_string(String, Start).
 -spec(sub_string(string(), integer(), integer()) -> string()).
 sub_string(String, Start, End) -> string:sub_string(String, Start, End).
 
-% in tokens, note that "List of Chars" meaning of string accurate for SeparatorChars.
+-spec(span(string(), string()) -> string()).
+span(String, Tail) -> string:span(String, Tail).
 
--spec(tokens(string(), string()) -> List).
+-spec(cspan(string(), string()) -> string()).
+cspan(String, CharsList) -> string:cspan(String, CharsList).
+
+% in tokens, note that "list() of Chars" meaning of string accurate for SeparatorChars.
+
+-spec(tokens(string(), string()) -> list()).
 tokens(String, SeparatorChars) -> string:tokens(String, SeparatorChars).
 
--spec(join(List, string()) -> string()).
+-spec(join(list(), string()) -> string()).
 join(ListOfStrings, Separator) -> string:join(ListOfStrings, Separator).
 
 -spec(words(string()) -> integer()).
@@ -84,10 +91,10 @@ copies(String, RepeatCount) -> string:copies(String, RepeatCount).
 strip(String) -> string:strip(String).
 
 % note left | right | both
--spec(strip(string(), Atom) -> string()).
+-spec(strip(string(), atom()) -> string()).
 strip(String, Direction) -> string:strip(String, Direction).
 
--spec(strip(string(), Atom, char()) -> string()).
+-spec(strip(string(), atom(), char()) -> string()).
 strip(String, Direction, Character) -> string:strip(String, Direction, Character).
 
 -spec(left(string(), integer()) -> string()).
@@ -138,5 +145,5 @@ float_to_list(Float) -> erlang:float_to_list(Float).
 -spec(fun_to_list(fun()) -> string()).
 fun_to_list(Fun) -> erlang:fun_to_list(Fun).
 
--spec(list_to_atom(string()) -> Atom).
+-spec(list_to_atom(string()) -> atom()).
 list_to_atom(String) -> erlang:list_to_atom(String).
