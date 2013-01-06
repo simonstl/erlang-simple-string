@@ -1,71 +1,142 @@
 -module(sstr).
--export([len/1, length/1, concat/1, concat/2, append/1, append/2, nth/2, hd/1, chr/2, str/2, substr/2, substr/3, sub_string/2, sub_string/3, tokens/2, join/2, words/1, words/2, chars/2, chars/3, copies/2, strip/1, strip/2, strip/3, left/2, left/3, right/2, right/3, centre/2, centre/3, reverse/1, reverse/2, to_float/1, to_integer/1, to_lower/1, to_upper/1, integer_to_list/1, integer_to_list/2, float_to_list/1, fun_to_list/1, list_to_atom/1]).
+-export([len/1, length/1, concat/1, concat/2, append/1, append/2, nth/2, hd/1]).
+-export([chr/2, str/2, substr/2, substr/3, sub_string/2, sub_string/3, tokens/2]).
+-export([join/2, words/1, words/2, chars/2, chars/3, copies/2, strip/1, strip/2]).
+-export([strip/3, left/2, left/3, right/2, right/3, centre/2, centre/3, reverse/1]).
+-export([reverse/2, to_float/1, to_integer/1, to_lower/1, to_upper/1]).
+-export([integer_to_list/1, integer_to_list/2, float_to_list/1, fun_to_list/1]). 
+-export([list_to_atom/1]).
 
-len(Arg1) -> string:len(Arg1).
+-spec(len(string()) -> integer()).
+len(String) -> string:len(String).
 
-length(Arg1) -> erlang:length(Arg1).
+% should equal be included?
 
-concat(Arg1) -> lists:concat(Arg1).
-concat(Arg1, Arg2) -> string:concat(Arg1, Arg2).
+-spec(length(string()) -> integer()).
+length(String) -> erlang:length(String).
 
-append(Arg1) -> lists:append(Arg1).
-append(Arg1, Arg2) -> lists:append(Arg1, Arg2).
+-spec(concat(List) -> string()).
+concat(ListOfStrings) -> lists:concat(ListOfStrings).
 
-nth(Arg1, Arg2) -> lists:nth(Arg1, Arg2).
+-spec(concat(string(), string()) -> string()).
+concat(String1, String2) -> string:concat(String1, String2).
 
-hd(Arg1) -> erlang:hd(Arg1).
+-spec(append(List) -> string()).
+append(ListOfStrings) -> lists:append(ListOfStrings).
 
-chr(Arg1, Arg2) -> string:chr(Arg1, Arg2).
+-spec(append(string(), string()) -> string()).
+append(String1, String2) -> lists:append(String1, String2).
 
-str(Arg1, Arg2) -> string:str(Arg1, Arg2).
+-spec(nth(integer(), string()) -> char()).
+nth(Position, String) -> lists:nth(Position, String).
 
-substr(Arg1, Arg2) -> string:substr(Arg1, Arg2).
-substr(Arg1, Arg2, Arg3) -> string:substr(Arg1, Arg2, Arg3).
+-spec(hd(string()) -> char()).
+hd(String) -> erlang:hd(String).
 
-sub_string(Arg1, Arg2) -> string:sub_string(Arg1, Arg2).
-sub_string(Arg1, Arg2, Arg3) -> string:sub_string(Arg1, Arg2, Arg3).
+-spec(chr(string(), char()) -> integer()).
+chr(String, CharToFind) -> string:chr(String, CharToFind).
 
-tokens(Arg1, Arg2) -> string:tokens(Arg1, Arg2).
+-spec(rchr(string(), char()) -> integer()).
+rchr(String, CharToFind) -> string:rchr(String, CharToFind).
 
-join(Arg1, Arg2) -> string:join(Arg1, Arg2).
+-spec(str(string(), string()) -> integer()).
+str(String, SubstringToFind) -> string:str(String, SubstringToFind).
 
-words(Arg1) -> string:words(Arg1).
-words(Arg1, Arg2) -> string:words(Arg1, Arg2).
+-spec(rstr(string(), string()) -> integer()).
+rstr(String, SubstringToFind) -> string:rstr(String, SubstringToFind).
 
-chars(Arg1, Arg2) -> string:chars(Arg1, Arg2).
-chars(Arg1, Arg2, Arg3) -> string:chars(Arg1, Arg2, Arg3).
+-spec(substr(string(), integer()) -> string()).
+substr(String, Start) -> string:substr(String, Start).
 
-copies(Arg1, Arg2) -> string:copies(Arg1, Arg2).
+-spec(substr(string(), integer(), integer()) -> string()).
+substr(String, Start, Length) -> string:substr(String, Start, Length).
 
-strip(Arg1) -> string:strip(Arg1).
-strip(Arg1, Arg2) -> string:strip(Arg1, Arg2).
-strip(Arg1, Arg2, Arg3) -> string:strip(Arg1, Arg2, Arg3).
+-spec(sub_string(string(), integer()) -> string()).
+sub_string(String, Start) -> string:sub_string(String, Start).
 
-left(Arg1, Arg2) -> string:left(Arg1, Arg2).
-left(Arg1, Arg2, Arg3) -> string:left(Arg1, Arg2, Arg3).
+-spec(sub_string(string(), integer(), integer()) -> string()).
+sub_string(String, Start, End) -> string:sub_string(String, Start, End).
 
-right(Arg1, Arg2) -> string:right(Arg1, Arg2).
-right(Arg1, Arg2, Arg3) -> string:right(Arg1, Arg2, Arg3).
+% in tokens, note that "List of Chars" meaning of string accurate for SeparatorChars.
 
-centre(Arg1, Arg2) -> string:centre(Arg1, Arg2).
-centre(Arg1, Arg2, Arg3) -> string:centre(Arg1, Arg2, Arg3).
+-spec(tokens(string(), string()) -> List).
+tokens(String, SeparatorChars) -> string:tokens(String, SeparatorChars).
 
-reverse(Arg1) -> lists:reverse(Arg1).
-reverse(Arg1, Arg2) -> lists:reverse(Arg1, Arg2).
+-spec(join(List, string()) -> string()).
+join(ListOfStrings, Separator) -> string:join(ListOfStrings, Separator).
 
-to_float(Arg1) -> string:to_float(Arg1).
+-spec(words(string()) -> integer()).
+words(String) -> string:words(String).
 
-to_integer(Arg1) -> string:to_integer(Arg1).
+-spec(words(string(), char()) -> integer()).
+words(String, WordSeparator) -> string:words(String, WordSeparator).
 
-to_lower(Arg1) -> string:to_lower(Arg1).
+-spec(chars(char(), integer()) -> string()).
+chars(Character, Number) -> string:chars(Character, Number).
 
-to_upper(Arg1) -> string:to_upper(Arg1).
+-spec(chars(char(), integer(), string()) -> string()).
+chars(Character, Number, Tail) -> string:chars(Character, Number, Tail).
 
-integer_to_list(Arg1) -> erlang:integer_to_list(Arg1).
-integer_to_list(Arg1, Arg2) -> erlang:integer_to_list(Arg1, Arg2).
+-spec(copies(string(), integer()) -> string()).
+copies(String, RepeatCount) -> string:copies(String, RepeatCount).
 
-float_to_list(Arg1) -> erlang:float_to_list(Arg1).
+-spec(strip(string()) -> string()).
+strip(String) -> string:strip(String).
 
-fun_to_list(Arg1) -> erlang:fun_to_list(Arg1).
+% note left | right | both
+-spec(strip(string(), Atom) -> string()).
+strip(String, Direction) -> string:strip(String, Direction).
 
-list_to_atom(Arg1) -> erlang:list_to_atom(Arg1).
+-spec(strip(string(), Atom, char()) -> string()).
+strip(String, Direction, Character) -> string:strip(String, Direction, Character).
+
+-spec(left(string(), integer()) -> string()).
+left(String, TargetLength) -> string:left(String, TargetLength).
+
+-spec(left(string(), integer(), char()) -> string()).
+left(String, TargetLength, PaddingCharacter) -> string:left(String, TargetLength, PaddingCharacter).
+
+-spec(right(string(), integer()) -> string()).
+right(String, TargetLength) -> string:right(String, TargetLength).
+
+-spec(right(string(), integer(), char()) -> string()).
+right(String, TargetLength, PaddingCharacter) -> string:right(String, TargetLength, PaddingCharacter).
+
+-spec(centre(string(), integer()) -> string()).
+centre(String, TargetLength) -> string:left(String, TargetLength).
+
+-spec(centre(string(), integer(), char()) -> string()).
+centre(String, TargetLength, PaddingCharacter) -> string:centre(String, TargetLength, PaddingCharacter).
+
+-spec(reverse(string()) -> string()).
+reverse(String) -> lists:reverse(String).
+
+-spec(reverse(string(), string()) -> string()).
+reverse(String, Tail) -> lists:reverse(String, Tail).
+
+-spec(to_float(string()) -> float()).
+to_float(String) -> string:to_float(String).
+
+-spec(to_integer(string()) -> integer()).
+to_integer(String) -> string:to_integer(String).
+
+-spec(to_lower(string()) -> string()).
+to_lower(String) -> string:to_lower(String).
+
+-spec(to_upper(string()) -> string()).
+to_upper(String) -> string:to_upper(String).
+
+-spec(integer_to_list(integer()) -> string()).
+integer_to_list(Integer) -> erlang:integer_to_list(Integer).
+
+-spec(integer_to_list(integer(), integer()) -> string()).
+integer_to_list(Integer, Base) -> erlang:integer_to_list(Integer, Base).
+
+-spec(float_to_list(float()) -> string()).
+float_to_list(Float) -> erlang:float_to_list(Float).
+
+-spec(fun_to_list(fun()) -> string()).
+fun_to_list(Fun) -> erlang:fun_to_list(Fun).
+
+-spec(list_to_atom(string()) -> Atom).
+list_to_atom(String) -> erlang:list_to_atom(String).
