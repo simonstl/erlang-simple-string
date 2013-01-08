@@ -1,3 +1,25 @@
+%%% The MIT License
+%%%
+%%% Copyright (C) 2011-2012 by Simon St.Laurent <simonstl@simonstl.com>
+%%%
+%%% Permission is hereby granted, free of charge, to any person obtaining a copy
+%%% of this software and associated documentation files (the "Software"), to deal
+%%% in the Software without restriction, including without limitation the rights
+%%% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+%%% copies of the Software, and to permit persons to whom the Software is
+%%% furnished to do so, subject to the following conditions:
+%%%
+%%% The above copyright notice and this permission notice shall be included in
+%%% all copies or substantial portions of the Software.
+%%%
+%%% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+%%% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+%%% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+%%% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+%%% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+%%% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+%%% THE SOFTWARE.
+
 -module(sstr).
 -export([len/1, length/1, concat/1, concat/2, append/1, append/2, nth/2, hd/1]).
 -export([chr/2, str/2, substr/2, substr/3, sub_string/2, sub_string/3, tokens/2]).
@@ -147,3 +169,6 @@ fun_to_list(Fun) -> erlang:fun_to_list(Fun).
 
 -spec(list_to_atom(string()) -> atom()).
 list_to_atom(String) -> erlang:list_to_atom(String).
+
+
+% need to eventually consider http://www.w3.org/TR/charmod-norm/#sec-FullyNormalized
