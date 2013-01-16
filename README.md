@@ -8,3 +8,5 @@ The initial version is purely a wrapper for traditional list-based strings.  Fut
 * rename some functions to make them more familiar to developers coming from other languages
 * fill some gaps for string functionality
 * add support for binary strings across the set
+
+The library is under the MIT license.
