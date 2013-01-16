@@ -1,7 +1,7 @@
 %% @author Simon St.Laurent <simonstl@simonstl.com>
 %% @doc Wrapper library for functions applied to strings
 
-% BSD License
+%%% (2-clause) Simplified BSD license
 
 %%% Copyright (c) 2013, Simon St.Laurent
 %%% All rights reserved.

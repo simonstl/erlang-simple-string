@@ -9,4 +9,4 @@ The initial version is purely a wrapper for traditional list-based strings.  Fut
 * fill some gaps for string functionality
 * add support for binary strings across the set
 
-The library is under the BSD license.
+The library is under the (2-clause) Simplified BSD license.
