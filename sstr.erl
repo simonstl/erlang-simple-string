@@ -1,5 +1,4 @@
-%% @author Simon St.Laurent <simonstl@simonstl.com>
-%% @doc Wrapper library for functions applied to strings
+%% Wrapper library for Erlang functions applied to strings
 
 %%% (2-clause) Simplified BSD license
 
@@ -15,7 +14,7 @@
 %%% Redistributions in binary form must reproduce the above copyright notice,
 %%% this list of conditions and the following disclaimer in the documentation
 %%% and/or other materials provided with the distribution.
-
+%%%
 %%% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
 %%% "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
 %%% LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,6 +27,55 @@
 %%% TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 %%% THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 %%% SUCH DAMAGE.
+
+%% @author Simon St.Laurent <simonstl@simonstl.com> [http://simonstl.com]
+%% @copyright 2012 by Simon St.Laurent
+%% @version 0.0001
+%% @doc A single library collecting string functions from elsewhere in Erlang.
+%% The <code>sstr</code> module assembles string-related functions from the following libraries:
+%%
+%% <ul><li><code>string</code> of course.
+%%
+%% </li><li><code>lists</code>, because (typical) Erlang strings are lists.
+%%
+%% </li><li><code>erlang</code> because some of the basics lurk there.
+%%
+%% </li><li><p><code>re</code> (<strong>todo</strong>) because regular expressions are a speedy
+%% and effective way to manipulate string content.</p></li></ul>
+%%
+%% Developers working with normalized text will probably find most of these functions straightforward.  
+%% However, a few basic techniques for inspecting strings may be useful when Unicode's variations create 
+%% surprises.
+%%
+%% For example, the word &#xE9;tudes can be represented two ways.  The first version represents
+%% the opening &#xE9; as a single character:
+%%
+%% 1> Test="&#xE9;tude".<br />
+%% "&#xE9;tude"<br />
+%%
+%% You can see what's inside of that string with <code>io:format</code>'s <code>~w</code>
+%% control sequence:
+%%
+%% 2> io:format("~w~n",[Test]).<br />
+%%[233,116,117,100,101]<br />
+%% ok<br />
+%%
+%% That's five characters, starting with character 233 (or E9 in hex).
+%%
+%% The second version represents the &#xE9; as a regular e plus an acute accent.  (No, this isn't
+%% a smart approach for that easily-managed character, but you may encounter this approach
+%% used for other characters or in cases where someone decomposed all the Unicode.)
+%%
+%% 3> Test2=[101,769,116,117,100,101].<br />
+%% [101,769,116,117,100,101]<br />
+%% 4> io:format("~ts~n",[Test2]).<br /> 
+%% &#xE9;tude<br />
+%% ok<br />
+%%
+%% In this case, the &#xE9; is represented by two characters, 101 and 769.  That means 
+%% the list underneath the string is six characters long.
+%%
+%% These variations may lead to surprises. [Need to point to normalization / denormalization tools.]
 
 -module(sstr).
 -export([len/1, length/1, concat/1, concat/2, append/1, append/2, nth/2, hd/1]).
