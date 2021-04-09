@@ -10,3 +10,5 @@ The initial version is purely a wrapper for traditional list-based strings.  Fut
 * add support for binary strings across the set
 
 The library is under the (2-clause) Simplified BSD license.
+
+To generate documentation just lauch `edoc:files(["sstr.erl"], [{dir, "doc"}]).` by Elang shell.
