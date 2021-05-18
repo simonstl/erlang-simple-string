@@ -19,4 +19,4 @@ The library is under the (2-clause) Simplified BSD license.
 
 ## How to run tests
 1. Start the shell (erl/werl).
-2. Lounch code `c(sstr). c(sstr_tests). eunit:test(sstr)` in the shell and analyze the results.
+2. Lounch code `c(sstr). c(sstr_tests). eunit:test(sstr).` in the shell and analyze the results.
