@@ -1,5 +1,5 @@
 # Erlang simple string
-====================
+
 
 A wrapper library that attempts to make Erlang's string functions in the string, lists, erlang, and (eventually) re modules seem coherent to beginners.
 
