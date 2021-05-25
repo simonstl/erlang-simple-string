@@ -985,8 +985,11 @@ float_to_list(Float) ->
 
 %% @doc Converts a float to a string using scientific option.
 %% @private
+%% @param Float float value
+%% @param ScientificDecimals scientific decimal value
+%% @returns string that represents float in scientific way.
 %%
-%% This functin using for betifying scientific string
+%% This function used for beautifying scientific string
 
 float_to_list_scientific(Float, 0) -> erlang:float_to_list(Float,[{scientific, 0}]);
 float_to_list_scientific(Float, ScientificDecimals) ->
@@ -999,6 +1002,9 @@ float_to_list_scientific(Float, ScientificDecimals) ->
 
 
 %% @doc Converts a fun to a string
+%% <br/>
+%% <b>See also:</b> 
+%% [http://erlang.org/doc/man/erlang.html#fun_to_list-1 erlang:fun_to_list/1]. 
 %% @param Fun float value
 %% @returns string that represents the code that created Fun.
 
@@ -1011,6 +1017,9 @@ fun_to_list(Fun) -> erlang:fun_to_list(Fun).
 %% <blockquote>
 %% As from Erlang/OTP 20, String may contain any Unicode character. 
 %% </blockquote>
+%% <br/>
+%% <b>See also:</b> 
+%% [http://erlang.org/doc/man/erlang.html#list_to_atom-1 erlang:list_to_atom/1]. 
 %% @param String input string
 %% @returns string that represents the code that created Fun.
 
