@@ -10,8 +10,6 @@ The initial version is purely a wrapper for traditional list-based strings.  Fut
 * add support for binary strings across the set
 
 The library is under the (2-clause) Simplified BSD license.
-<<<<<<< HEAD
-=======
 
 ## How to generate documentation
 1. Lounch command in project directory: `mkdir doc &&  cp -f overview.edoc doc/overview.edoc`.
@@ -22,4 +20,4 @@ The library is under the (2-clause) Simplified BSD license.
 ## How to run tests
 1. Start the shell (erl/werl).
 2. Lounch code `c(sstr). c(sstr_tests). eunit:test(sstr).` in the shell and analyze the results.
->>>>>>> parent of 5d3cf7c (Make library as a rebar3 library)
+
