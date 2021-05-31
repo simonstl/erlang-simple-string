@@ -10,22 +10,3 @@ The initial version is purely a wrapper for traditional list-based strings.  Fut
 * add support for binary strings across the set
 
 The library is under the (2-clause) Simplified BSD license.
-
-=====
-
-
-Build
------
-	$ rebar3 compile
-
-Run
------
-	$ rebar3 eunit -v --app simple_string
-	
-Format
------
-	$ rebar3 format
-
-Generate documentation
------
-	$ rebar3 edoc
