@@ -449,6 +449,6 @@ list_to_atom_test_()->
 [
   ?_assertEqual(ok, sstr:list_to_atom("ok")),
   ?_assertEqual('micha\x{142}', sstr:list_to_atom("michał")),
-  ?_assertEqual('\x{430}\x{431}\x{432}\x{433}\x{434}\x{435}\x{451}\x{436}\x{437}\x{438}\x{439}\x{43A}\x{43B}\x{43C}\x{43D}\x{43E}\x{43F}\x{440}\x{441}\x{442}\x{443}\x{444}\x{445}\x{446}\x{447}\x{448}\x{449}\x{44A}\x{44B}\x{44C}\x{44D}\x{44E}\x{44F}',sstr:list_to_atom("абвгдеёжзийклмнопрстуфхцчшщъыьэюя"))
+  ?_assertEqual('абвгдеёжзийклмнопрстуфхцчшщъыьэюя',sstr:list_to_atom("абвгдеёжзийклмнопрстуфхцчшщъыьэюя"))
 
 ].
