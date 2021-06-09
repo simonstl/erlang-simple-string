@@ -1,0 +1,5 @@
+@author Simon St.Laurent <simonstl@simonstl.com> [http://simonstl.com]
+@doc A wrapper library that attempts to make Erlang's string functions in 
+the string, lists, erlang, and (eventually) re modules seem coherent to beginners.
+@copyright BSD 2-Clause License 2021 by Simon St.Laurent
+@version 0.1
