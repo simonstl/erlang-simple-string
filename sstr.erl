@@ -47,8 +47,8 @@
 %%
 %% <li><code>erlang</code> because some of the basics lurk there.</li>
 %%
-%% <li><p><code>re</code> (<strong>todo</strong>) because regular expressions are a speedy
-%% and effective way to manipulate string content.</p></li>
+%% <li><code>re</code> because regular expressions are a speedy
+%% and effective way to manipulate string content.</li>
 %% </ul>
 %%
 %% Developers working with normalized text will probably find most of these functions straightforward.  
@@ -99,10 +99,20 @@
 -export([reverse/2, to_float/1, to_integer/1, to_lower/1, to_upper/1]).
 -export([integer_to_list/1, integer_to_list/2, float_to_list/1, fun_to_list/1]). 
 -export([list_to_atom/1, equal/2, rchr/2, rstr/2, span/2, cspan/2]).
+-export([run/4, replace/5, split/4]).
 
 -type chardata() :: unicode:chardata().
 -type direction() :: string:direction().
 -type grapheme_cluster() :: string:grapheme_cluster().
+
+-type nl_spec() :: cr | crlf | lf | anycrlf | any.
+-type compile_option() :: 
+    unicode | anchored | caseless | dollar_endonly | dotall |
+    extended | firstline | multiline | no_auto_capture |
+    dupnames | ungreedy | 
+    {newline, nl_spec()} |
+    bsr_anycrlf | bsr_unicode | no_start_optimize | ucp |
+    never_utf.
 
 
 %% @doc Returns the length of as string.
@@ -1026,3 +1036,112 @@ fun_to_list(Fun) -> erlang:fun_to_list(Fun).
 -spec list_to_atom(String) -> atom() when
       String :: string().
 list_to_atom(String) -> erlang:list_to_atom(String).
+
+%% @doc Compiles and executes a regular expression matching.
+%% <br/>
+%% <b>See also:</b> 
+%% [http://erlang.org/doc/man/re.html#compile-2 re:compile/2], 
+%% [http://erlang.org/doc/man/re.html#run-3 re:run/3]. 
+%% @param Subject input string
+%% @param RegexString regular expression
+%% @param CompileOtions regular expression compilation options
+%% @param RunOptions regular expression run options
+%% @returns string that represents the result of the regular expresion execution.
+
+-spec run(Subject, RegexString, CompileOtions, RunOptions) -> Result when
+      Subject :: string(),
+	  RegexString :: string(), 
+	  CompileOtions :: [CompileOpt], 
+	  CompileOpt :: compile_option(),
+	  RunOptions :: [RunOption],
+	  RunOption :: 
+    anchored | global | notbol | noteol | notempty |
+    notempty_atstart | report_errors |
+    {offset, pos_integer()} |
+    {match_limit, pos_integer()} |
+    {match_limit_recursion, pos_integer()} |
+    {newline, NLSpec :: nl_spec()} |
+    bsr_anycrlf | bsr_unicode |
+    CompileOpt,
+	Result :: string() | nomatch.
+	
+run(Subject, RegexString, CompileOtions, RunOptions)	when is_list(CompileOtions), is_list(RunOptions) ->
+	{ok, MP} = re:compile(RegexString, CompileOtions),
+	RunResult = re:run(Subject, MP, RunOptions ++ [{capture, all, list}]),
+	case RunResult of  
+	   {match, [Result]} -> Result;
+	   nomatch ->  nomatch
+	end.
+	
+%% @doc Compiles and replaces the matched part of the Subject string with the contents of Replacement.
+%% <br/>
+%% <b>See also:</b> 
+%% [http://erlang.org/doc/man/re.html#run-3 re:replace/3]. 
+%% @param Subject input string
+%% @param Replacement replace string
+%% @param RegexString regular expression
+%% @param CompileOtions regular expression compilation options
+%% @param ReplaceOptions regular expression replace options
+%% @returns string that represents the result of the replace expresion execution.
+
+-spec replace(Subject, Replacement, RegexString, CompileOtions, ReplaceOptions) -> Result when
+      Subject :: string(),
+	  Replacement :: string(),
+	  RegexString :: string(),
+	  CompileOtions :: [CompileOpt], 
+	  CompileOpt :: compile_option(),
+	  ReplaceOptions :: [ReplaceOption],
+	  ReplaceOption :: 
+    anchored | global | notbol | noteol | notempty |
+    notempty_atstart |
+    {offset, pos_integer()} |
+    {newline, NLSpec} |
+    bsr_anycrlf |
+    {match_limit, pos_integer()} |
+    {match_limit_recursion, pos_integer()} |
+    bsr_unicode |
+    CompileOpt,
+    Result :: list,
+    NLSpec :: nl_spec().
+	
+replace(Subject, Replacement, RegexString, CompileOtions, ReplaceOptions)	when is_list(CompileOtions), 
+                                                                                   is_list(ReplaceOptions) ->
+	{ok, MP} = re:compile(RegexString, CompileOtions),
+	Result = re:replace(Subject, MP, Replacement, ReplaceOptions ++ [{return, list}]),
+	Result.
+
+%% @doc Splits the input into parts by finding tokens according to the regular expression supplied.
+%% <br/>
+%% <b>See also:</b> 
+%% [http://erlang.org/doc/man/re.html#split-3 re:split/3]. 
+%% @param Subject input string
+%% @param RegexString regular expression
+%% @param CompileOtions regular expression compilation options
+%% @param SplitOtions split execution options
+%% @returns string that represents the result of the replace split execution.
+
+-spec split(Subject, RegexString, CompileOtions, SplitOtions) -> SplitList when
+      Subject :: string(),
+	  RegexString :: string(),
+	  CompileOtions :: [CompileOpt], 
+	  CompileOpt :: compile_option(),
+	  SplitOtions :: [SplitOtion],
+	  SplitOtion :: 
+    anchored | notbol | noteol | notempty | notempty_atstart |
+    {offset, pos_integer()} |
+    {newline, nl_spec()} |
+    {match_limit, pos_integer()} |
+    {match_limit_recursion, pos_integer()} |
+    bsr_anycrlf | bsr_unicode |
+    {parts, NumParts} |
+    group | trim | CompileOpt,
+    NumParts :: pos_integer() | infinity,
+    CompileOpt :: compile_option(),
+    SplitList :: [RetData] | [GroupedRetData],
+    GroupedRetData :: [RetData],
+    RetData :: iodata() | unicode:charlist() | binary() | list().
+	
+split(Subject, RegexString, CompileOtions, SplitOtions) when is_list(CompileOtions), is_list(SplitOtions) -> 
+	{ok, MP} = re:compile(RegexString, CompileOtions),
+	SplitList = re:split(Subject, MP, SplitOtions ++ [{return, list}]), 
+	SplitList.

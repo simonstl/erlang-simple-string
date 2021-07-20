@@ -452,3 +452,30 @@ list_to_atom_test_()->
   ?_assertEqual('абвгдеёжзийклмнопрстуфхцчшщъыьэюя',sstr:list_to_atom("абвгдеёжзийклмнопрстуфхцчшщъыьэюя"))
 
 ].
+
+run_test_() ->
+  %fun() ->
+  %  ?debugFmt("~n~p~n", [sstr:run("hello","hello", [],[])])
+  %end.  
+[
+  ?_assertEqual("hello",sstr:run("hello","hello", [],[]))
+
+].
+
+replace_test_() ->
+  %fun() ->
+  %  ?debugFmt("~n~p~n", [sstr:replace("hello","hi", "hello", [],[])])
+  %end.   
+[
+  ?_assertEqual("hi",sstr:replace("hello","hi", "hello", [],[]))
+
+].
+
+split_test_() ->
+  %fun() ->
+  %  ?debugFmt("~n~p~n", [sstr:split("hello;hello",";", [],[])])
+  %end.
+[
+  ?_assertEqual(["hello","hello"], sstr:split("hello;hello",";", [],[]))
+].  
+  
