@@ -1,7 +1,7 @@
 # Erlang simple string
 
 
-A wrapper library that attempts to make Erlang's string functions in the string, lists, erlang, and re modules seem coherent to beginners.
+A wrapper library that attempts to make Erlang's string functions in the [string](http://erlang.org/doc/man/string.html), [lists](http://erlang.org/doc/man/lists.html), [erlang](http://erlang.org/doc/man/erlang.html), and [re](http://erlang.org/doc/man/re.html) modules seem coherent to beginners.
 
 The initial version is purely a wrapper for traditional list-based strings.  Future versions may:
 
