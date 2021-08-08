@@ -1146,12 +1146,23 @@ split(Subject, RegexString, CompileOtions, SplitOtions) when is_list(CompileOtio
 	SplitList = re:split(Subject, MP, SplitOtions ++ [{return, list}]), 
 	SplitList.
 
-%% @doc Convert integer value to the hex-string with #-prefix 
+%% @doc Convert integer value to the hex-string with #-prefix.
+%% Convert array of integers to the hex-string with #-prefix.
 %% @returns Return hex-string.
 
--spec hex(Integer) -> Result
-    when Integer :: pos_integer(),
-         Result :: string().
-hex(Integer) ->
-    String = io_lib:fwrite("~.16X", [Integer,"#"]),
+-spec hex(Integer | List) -> Result when Integer ::
+                                             pos_integer(),
+                                         List :: [integer()],
+                                         Result :: string().
+
+hex(Integer) when is_integer(Integer) ->
+    String = io_lib:fwrite("~.16X", [Integer, "#"]),
+    String;
+hex(List) when is_list(List) ->
+    HexStringList = lists:map(fun (Integer) ->
+                                      io_lib:fwrite("~.16X", [Integer, ""])
+                              end,
+                              List),
+    HexString = lists:concat(HexStringList),
+    String = "#" ++ HexString,
     String.
