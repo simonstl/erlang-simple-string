@@ -1166,3 +1166,21 @@ hex(List) when is_list(List) ->
     HexString = lists:concat(HexStringList),
     String = "#" ++ HexString,
     String.
+	
+-spec hex(Integer | List,Prefix) -> Result when Integer ::
+                                             pos_integer(),
+                                         List :: [integer()],
+										 Prefix :: string(),
+                                         Result :: string().
+
+hex(Integer,Prefix) when is_integer(Integer) ->
+    String = io_lib:fwrite("~.16X", [Integer, Prefix]),
+    String;
+hex(List,Prefix) when is_list(List) ->
+    HexStringList = lists:map(fun (Integer) ->
+                                      io_lib:fwrite("~.16X", [Integer, ""])
+                              end,
+                              List),
+    HexString = lists:concat(HexStringList),
+    String = Prefix ++ HexString,
+    String.	
