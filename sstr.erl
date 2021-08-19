@@ -100,6 +100,7 @@
 -export([integer_to_list/1, integer_to_list/2, float_to_list/1, fun_to_list/1]). 
 -export([list_to_atom/1, equal/2, rchr/2, rstr/2, span/2, cspan/2]).
 -export([run/4, replace/5, split/4]).
+-export([hex/1,hex/2]).
 
 -type chardata() :: unicode:chardata().
 -type direction() :: string:direction().
