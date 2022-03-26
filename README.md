@@ -14,7 +14,7 @@ The library is under the (2-clause) Simplified BSD license.
 ## How to generate documentation
 1. Lounch command in project directory: `mkdir doc &&  cp -f overview.edoc doc/overview.edoc`.
 2. Start the shell (erl/werl).
-3. Lounch code `edoc:files(["sstr.erl"], [{dir, "doc"}]).` in the shell.
+3. Lounch the code `edoc:files(["sstr.erl"], [{dir, "doc"}]).` in the shell.
 4. Open file index.html in the `doc` subfolder.
 
 ## How to run tests
